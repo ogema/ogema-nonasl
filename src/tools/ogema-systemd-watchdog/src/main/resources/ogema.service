@@ -1,0 +1,38 @@
+# at least the User and WorkingDirectory (set to OGEMA home) need to be adjusted,
+# in case of problems, also check ExecStart and ExecStop for correct paths
+
+[Unit]
+Description=OGEMA runtime
+
+
+[Service]
+#User=alarm
+WorkingDirectory=/home/jlapp/ogema
+
+Type=notify
+NotifyAccess=all
+WatchdogSec=20
+# start timeout should be more generous on a small system with enabled securiy...
+TimeoutStartSec=20s
+TimeoutStopSec=20s
+
+# could not get KillMode to work here, maybe because of screen or maybe
+# because 'main process' != $MAINPID - using ExecStop
+#KillMode=process
+#KillSignal=SIGTERM
+
+ExecStart=/usr/bin/screen -DmS ogema ./start.sh --use-rundir-only
+
+ExecStop=/bin/bash -c 'kill $MAINPID; wait $MAINPID; exit 0'
+# VM exit because of SIGTERM = 143
+SuccessExitStatus=143
+# clean up screen session
+ExecStopPost=-/usr/bin/screen -S ogema -X quit
+
+Restart=always
+RestartSec=5
+
+
+[Install]
+WantedBy=multi-user.target
+
