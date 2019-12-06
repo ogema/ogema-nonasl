@@ -14,7 +14,7 @@
 	<groupId>org.ogema</groupId>
 	<artifactId>ogema-nonasl</artifactId>
 	<packaging>pom</packaging>
-	<version>2.2.0</version>
+	<version>2.2.1</version>
 	<name>OGEMA Non-ASL components</name>
 
 	<!-- Sub-projects (i.e. the OGEMA Applications): Try to keep alphabetical 
@@ -109,5 +109,17 @@
 				
 			</plugins>
 		</pluginManagement>
+		
 	</build>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.2.12</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 </project>
