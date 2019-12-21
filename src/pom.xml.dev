@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent-POM: OGEMA master pom with project-wide settings -->
+	<parent>
+		<groupId>org.ogema</groupId>
+		<artifactId>ogema</artifactId>
+		<version>2.2.0</version>
+	</parent>
+
+	<!-- Note that groupId and version are inherited from the parent pom.xml 
+		unless explicitly overwritten here -->
+	<groupId>org.ogema</groupId>
+	<artifactId>ogema-nonasl</artifactId>
+	<packaging>pom</packaging>
+	<version>2.2.1</version>
+	<name>OGEMA Non-ASL components</name>
+
+	<!-- Sub-projects (i.e. the OGEMA Applications): Try to keep alphabetical 
+		order. -->
+	<modules>
+		<module>drivers</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+				</plugin>
+				
+								<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>3.0</version>
+					<configuration>
+                        <!-- see 'mvn com.mycila:license-maven-plugin:help -Ddetail=true' -->
+						<header>${license.header}</header>
+                        <keywords> <!-- existing license headers contain all of these keywords -->
+                            <keyword>Fraunhofer-Gesellschaft</keyword>
+                            <keyword>GNU</keyword>
+                            <keyword>License</keyword>
+                        </keywords>
+						<properties>
+							<year>2019</year>
+							<email>info@ogema.org</email>
+						</properties>
+						<!-- Encoding is actually unused, see http://code.google.com/p/license-maven-plugin/issues/detail?id=115 
+							which is not yet patched in the released versions (up to 1.10.0b1). The license 
+							plugin will always use the platform encoding when reading the license file, 
+							which is usually cp1251 on windows. To override the platform encoding used 
+							in maven the system property 'file.encoding' must be set in the environment 
+							variable JAVA_TOOL_OPTIONS. set JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8 -->
+						<encoding>UTF-8</encoding>
+
+						<includes>
+							<include>src/**</include>
+							<include>web/**</include>
+						</includes>
+						<excludes>
+							<exclude>lib/**</exclude>
+							<exclude>libs/**</exclude>
+							<exclude>target/**</exclude>
+							<exclude>**/*.txt</exclude>
+							<exclude>**/data/**</exclude>
+							<exclude>**/MANIFEST.MF</exclude>
+							<exclude>**/.project</exclude>
+							<exclude>**/.settings</exclude>
+							<exclude>**/.classpath</exclude>
+							<exclude>**/*.log</exclude>
+							<exclude>**/jquery*.js</exclude>
+							<!-- for now don't add header to any js or css file because there 
+								are a lot of external files we're using where our header would be added ... -->
+							<exclude>**/*.js</exclude>
+							<exclude>**/*.json</exclude>
+							<exclude>**/*.map</exclude>
+							<exclude>**/*.css</exclude>
+							<exclude>**/*.psd</exclude>
+							<exclude>**/*.mp4</exclude>
+							<exclude>**/*.csv</exclude>
+							<exclude>**/*.svg</exclude>
+							<exclude>**/*.ini</exclude>
+							<exclude>**/*.properties</exclude>
+							<exclude>**/*.uml</exclude>
+							<exclude>**/*.umlcd</exclude>
+							<exclude>**/*.eot</exclude>
+							<exclude>**/*.ttf</exclude>
+							<exclude>**/*.woff</exclude>
+							<exclude>**/grafana-1.9.1/**/</exclude>
+						</excludes>
+						<useDefaultExcludes>true</useDefaultExcludes>
+						<strictCheck>true</strictCheck>
+						<failIfMissing>true</failIfMissing>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>format</goal>
+							</goals>
+							<!-- don't execute this plugin automatically -> need to be invoked 
+								explicitly: mvn license:[goal] [goal] := check, format or remove -->
+							<phase>validate</phase>
+						</execution>
+					</executions>
+				</plugin>
+				
+				
+			</plugins>
+		</pluginManagement>
+		
+	</build>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.2.12</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+</project>
