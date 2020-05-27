@@ -21,6 +21,7 @@
 		order. -->
 	<modules>
 		<module>drivers</module>
+		<module>tools/ogema-systemd-watchdog</module>
 	</modules>
 
 	<build>
